@@ -10,8 +10,9 @@ Official Code Repository for GraphGDP: Generative Diffusion Processes for Permut
 
 ## Code Usage
 
+### Configurations
 
-## Training
+### Training
 
 
 ## Evaluation
