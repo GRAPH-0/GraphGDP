@@ -7,6 +7,7 @@ Official Code Repository for GraphGDP: Generative Diffusion Processes for Permut
 
 ## Data
 
+*Acknowledgement:* Our implementation heavily relies on the repo https://github.com/yang-song/score_sde_pytorch. 
 
 ## Code Usage
 
