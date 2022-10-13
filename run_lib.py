@@ -11,7 +11,7 @@ import pickle
 from models import pgsn
 import losses
 import sampling
-from model import utils as mutils
+from models import utils as mutils
 from models.ema import ExponentialMovingAverage
 import datasets
 from evaluation import get_stats_eval, get_nn_eval
@@ -19,7 +19,6 @@ import sde_lib
 import visualize
 from utils import *
 
-import pdb
 
 FLAGS = flags.FLAGS
 

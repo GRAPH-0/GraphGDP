@@ -48,9 +48,9 @@ def get_config():
     config.eval = evaluate = ml_collections.ConfigDict()
     evaluate.begin_ckpt = 5
     evaluate.end_ckpt = 20
-    evaluate.batch_size = 1024
+    evaluate.batch_size = 113
     evaluate.enable_sampling = True
-    evaluate.num_samples = 1024
+    evaluate.num_samples = 113
     evaluate.mmd_distance = 'RBF'
     evaluate.max_subgraph = False
     evaluate.save_graph = False
@@ -61,10 +61,10 @@ def get_config():
     data.dequantization = False
 
     data.root = 'data'
-    data.name = 'Community_small'
+    data.name = 'ENZYMES'
     data.split_ratio = 0.8
-    data.max_node = 20
-    data.num_graphs = 100
+    data.max_node = 125
+    data.num_graphs = 563
     data.num_channels = 1
 
     # model
@@ -74,13 +74,13 @@ def get_config():
     model.ema_rate = 0.9999
     model.normalization = 'GroupNorm'
     model.nonlinearity = 'swish'
-    model.nf = 128
+    model.nf = 256
     model.num_gnn_layers = 4
     model.size_cond = False
     model.embedding_type = 'positional'
-    model.rw_depth = 16
+    model.rw_depth = 32
     model.graph_layer = 'PosTransLayer'
-    model.edge_th = -1.
+    model.edge_th = 0.2
     model.heads = 8
 
     model.num_scales = 1000

@@ -1,8 +1,12 @@
 import torch.nn as nn
 import torch
+import functools
+from torch_geometric.utils import dense_to_sparse
 
 from . import utils, layers, gnns
-import pdb
+
+get_act = layers.get_act
+conv1x1 = layers.conv1x1
 
 
 @utils.register_model(name='PGSN')
@@ -61,10 +65,10 @@ class PGSN(nn.Module):
         modules.append(nn.Linear(rw_depth, self.pos_ch))
 
         # GNN
-        models.append(gnns.pos_gnn(act, self.x_ch, self.pos_ch, nf, config.data.max_node,
-                                   config.model.graph_layer, num_gnn_layers,
-                                   heads=config.model.heads, edge_dim=nf//2, temb_dim=nf * 4,
-                                   dropout=dropout))
+        modules.append(gnns.pos_gnn(act, self.x_ch, self.pos_ch, nf, config.data.max_node,
+                                    config.model.graph_layer, num_gnn_layers,
+                                    heads=config.model.heads, edge_dim=nf//2, temb_dim=nf * 4,
+                                    dropout=dropout))
 
         # output
         modules.append(conv1x1(nf // 2, nf // 2))
@@ -115,11 +119,9 @@ class PGSN(nn.Module):
             adj[adj >= 0.] = 1.
             adj[adj < 0.] = 0.
             adj = adj * mask.squeeze(1)
-            pdb.set_trace()
 
         # extract RWSE and Shortest-Path Distance
         x_pos, spd_onehot = utils.get_rw_feat(self.rw_depth, adj)
-        pdb.set_trace()
 
         # edge [B, N, N, F]
         dense_edge_ori = modules[m_idx](x).permute(0, 2, 3, 1)

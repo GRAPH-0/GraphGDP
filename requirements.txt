@@ -1,4 +1,6 @@
 ml-collections
 absl-py
-torch>=1.7.0
+pandas
+matplotlib
+tensorboard
 torchdiffeq

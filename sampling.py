@@ -149,20 +149,6 @@ class Predictor(abc.ABC):
         """
         pass
 
-    @abc.abstractmethod
-    def update_mol_fn(self, x, t, *args, **kwargs):
-        """One update of the predictor for molecule graphs.
-
-        Args:
-            x: A tuple of PyTorch tensor (x_atom, x_bond) representing the current state.
-            t: A PyTorch tensor representing the current time step.
-
-        Returns:
-            x: A tuple of PyTorch tensor (x_atom, x_bond) of the next state.
-            x_mean: A tuple of PyTorch tensor. The next state without random noise. Useful for denoising.
-        """
-        pass
-
 
 class Corrector(abc.ABC):
     """The abstract class for a corrector algorithm."""
@@ -185,20 +171,6 @@ class Corrector(abc.ABC):
         Returns:
             x: A PyTorch tensor of the next state.
             x_mean: A PyTorch tensor. The next state without random noise. Useful for denoising.
-        """
-        pass
-
-    @abc.abstractmethod
-    def update_mol_fn(self, x, t, *args, **kwargs):
-        """One update of the corrector for molecule graphs.
-
-        Args:
-            x: A tuple of PyTorch tensor (x_atom, x_bond) representing the current state.
-            t: A PyTorch tensor representing the current time step.
-
-        Returns:
-            x: A tuple of PyTorch tensor (x_atom, x_bond) of the next state.
-            x_mean: A tuple of PyTorch tensor. The next state without random noise. Useful for denoising.
         """
         pass
 
@@ -249,19 +221,11 @@ class NonePredictor(Predictor):
     def update_fn(self, x, t, *args, **kwargs):
         return x, x
 
-    def update_mol_fn(self, x, t, *args, **kwargs):
-        return x, x
-
 
 @register_corrector(name='langevin')
 class LangevinCorrector(Corrector):
     def __init__(self, sde, score_fn, snr, n_steps):
         super().__init__(sde, score_fn, snr, n_steps)
-
-        # if not isinstance(sde, sde_lib.VPSDE) \
-        #     and not isinstance(sde, sde_lib.VESDE) \
-        #     and not isinstance(sde, sde_lib.subVPSDE):
-        #     raise NotImplementedError(f"SDE class {sde.__class__.__name__} not yet supported.")
 
     def update_fn(self, x, t, *args, **kwargs):
         sde = self.sde

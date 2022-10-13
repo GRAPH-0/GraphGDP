@@ -17,7 +17,7 @@ def get_config():
 
     training.batch_size = 32
     training.eval_batch_size = 16
-    training.n_iters = 1000000
+    training.n_iters = 200000
     training.snapshot_freq = 10000
     training.log_freq = 200
     training.eval_freq = 5000
@@ -34,8 +34,6 @@ def get_config():
     sampling.corrector = 'none'
     sampling.rtol = 1e-5
     sampling.atol = 1e-5
-    sampling.ode_method = 'dopri5'  # 'rk4'
-    sampling.ode_step = 0.01
 
     sampling.n_steps_each = 1
     sampling.noise_removal = True
@@ -46,7 +44,7 @@ def get_config():
 
     # evaluation
     config.eval = evaluate = ml_collections.ConfigDict()
-    evaluate.begin_ckpt = 5
+    evaluate.begin_ckpt = 20
     evaluate.end_ckpt = 20
     evaluate.batch_size = 1024
     evaluate.enable_sampling = True
@@ -61,10 +59,10 @@ def get_config():
     data.dequantization = False
 
     data.root = 'data'
-    data.name = 'Community_small'
+    data.name = 'Ego_small'
     data.split_ratio = 0.8
-    data.max_node = 20
-    data.num_graphs = 100
+    data.max_node = 18
+    data.num_graphs = 200
     data.num_channels = 1
 
     # model
@@ -74,11 +72,11 @@ def get_config():
     model.ema_rate = 0.9999
     model.normalization = 'GroupNorm'
     model.nonlinearity = 'swish'
-    model.nf = 128
-    model.num_gnn_layers = 4
+    model.nf = 64
+    model.num_gnn_layers = 3
     model.size_cond = False
     model.embedding_type = 'positional'
-    model.rw_depth = 16
+    model.rw_depth = 8
     model.graph_layer = 'PosTransLayer'
     model.edge_th = -1.
     model.heads = 8

@@ -10,8 +10,8 @@ import dgl
 def get_stats_eval(config):
 
     if config.eval.mmd_distance.lower() == 'rbf':
-        method = [('degree', config.data.deg_sigma, 'argmax'), ('cluster', config.data.clus_sigma, 'argmax'),
-                  ('spectral', config.data.spec_sigma, 'argmax')]
+        method = [('degree', 1., 'argmax'), ('cluster', 0.1, 'argmax'),
+                  ('spectral', 1., 'argmax')]
     else:
         raise ValueError
 

@@ -24,9 +24,13 @@ class Descriptor():
 
         if sigma_type == 'argmax':
             log_sigmas = np.linspace(-5., 5., 50)
-            # the first 20 sigma values is usually enough
-            log_sigmas = log_sigmas[:20]
+            # the first 30 sigma values is usually enough
+            log_sigmas = log_sigmas[:30]
             self.sigmas = [np.exp(log_sigma) for log_sigma in log_sigmas]
+        elif sigma_type == 'single':
+            self.sigmas = kwargs['sigma']
+        else:
+            raise ValueError
 
     def evaluate(self, graph_ref_list, graph_pred_list):
         """Compute the distance between the distributions of two unordered sets of graphs.

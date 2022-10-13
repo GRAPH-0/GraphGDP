@@ -4,11 +4,12 @@ Official Code Repository for GraphGDP (ICDM 2022).
 
 ## Dependencies 
 
+The main requirements are:
+* pytorch 1.11
+* PyG 2.1
+* DGL 0.9.1 (for GIN-based metrics from GGM-metrics)
 
 ## Data
-
-*Acknowledgement:* Our implementation heavily relies on the repo https://github.com/yang-song/score_sde_pytorch . 
-Evaluation implementation is modified from the repo https://github.com/uoguelph-mlrg/GGM-metrics .
 
 ## Code Usage
 
@@ -19,6 +20,9 @@ Evaluation implementation is modified from the repo https://github.com/uoguelph-
 
 ## Evaluation
 
+
+*Acknowledgement:* Our implementation heavily relies on the repo [Score_SDE](https://github.com/yang-song/score_sde_pytorch). 
+Evaluation implementation is modified from the repo [GGM-metrics](https://github.com/uoguelph-mlrg/GGM-metrics).
 
 ## Citation
 

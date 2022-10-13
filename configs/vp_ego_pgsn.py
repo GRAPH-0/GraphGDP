@@ -15,9 +15,9 @@ def get_config():
     training.continuous = True
     training.reduce_mean = True
 
-    training.batch_size = 32
-    training.eval_batch_size = 16
-    training.n_iters = 1000000
+    training.batch_size = 24
+    training.eval_batch_size = 8
+    training.n_iters = 800000
     training.snapshot_freq = 10000
     training.log_freq = 200
     training.eval_freq = 5000
@@ -48,9 +48,9 @@ def get_config():
     config.eval = evaluate = ml_collections.ConfigDict()
     evaluate.begin_ckpt = 5
     evaluate.end_ckpt = 20
-    evaluate.batch_size = 1024
+    evaluate.batch_size = 48
     evaluate.enable_sampling = True
-    evaluate.num_samples = 1024
+    evaluate.num_samples = 152
     evaluate.mmd_distance = 'RBF'
     evaluate.max_subgraph = False
     evaluate.save_graph = False
@@ -61,10 +61,10 @@ def get_config():
     data.dequantization = False
 
     data.root = 'data'
-    data.name = 'Community_small'
+    data.name = 'Ego'
     data.split_ratio = 0.8
-    data.max_node = 20
-    data.num_graphs = 100
+    data.max_node = 399
+    data.num_graphs = 757
     data.num_channels = 1
 
     # model
@@ -74,13 +74,13 @@ def get_config():
     model.ema_rate = 0.9999
     model.normalization = 'GroupNorm'
     model.nonlinearity = 'swish'
-    model.nf = 128
-    model.num_gnn_layers = 4
+    model.nf = 64
+    model.num_gnn_layers = 3
     model.size_cond = False
     model.embedding_type = 'positional'
     model.rw_depth = 16
     model.graph_layer = 'PosTransLayer'
-    model.edge_th = -1.
+    model.edge_th = 0.2
     model.heads = 8
 
     model.num_scales = 1000
