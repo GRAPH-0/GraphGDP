@@ -68,7 +68,7 @@ class PGSN(nn.Module):
         modules.append(gnns.pos_gnn(act, self.x_ch, self.pos_ch, nf, config.data.max_node,
                                     config.model.graph_layer, num_gnn_layers,
                                     heads=config.model.heads, edge_dim=nf//2, temb_dim=nf * 4,
-                                    dropout=dropout))
+                                    dropout=dropout, attn_clamp=config.model.attn_clamp))
 
         # output
         modules.append(conv1x1(nf // 2, nf // 2))

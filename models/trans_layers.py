@@ -20,7 +20,7 @@ class PosTransLayer(MessagePassing):
 
     def __init__(self, x_channels: int, pos_channels: int, out_channels: int,
                  heads: int = 1, dropout: float = 0., edge_dim: Optional[int] = None,
-                 bias: bool = True, act=None, **kwargs):
+                 bias: bool = True, act=None, attn_clamp: bool = False, **kwargs):
         kwargs.setdefault('aggr', 'add')
         super(PosTransLayer, self).__init__(node_dim=0, **kwargs)
 
@@ -31,6 +31,7 @@ class PosTransLayer(MessagePassing):
         self.heads = heads
         self.dropout = dropout
         self.edge_dim = edge_dim
+        self.attn_clamp = attn_clamp
 
         if act is None:
             self.act = nn.LeakyReLU(negative_slope=0.2)
@@ -109,7 +110,8 @@ class PosTransLayer(MessagePassing):
 
         edge_attn = self.lin_edge0(edge_attr).view(-1, self.heads, self.out_channels)
         alpha = (query_i * key_j * edge_attn).sum(dim=-1) / math.sqrt(self.out_channels)
-        # alpha = alpha.clamp(min=-5., max=5.)
+        if self.attn_clamp:
+            alpha = alpha.clamp(min=-5., max=5.)
 
         alpha = softmax(alpha, index, ptr, size_i)
         alpha = F.dropout(alpha, p=self.dropout, training=self.training)

@@ -80,6 +80,7 @@ def get_config():
     model.graph_layer = 'PosTransLayer'
     model.edge_th = -1.
     model.heads = 8
+    model.attn_clamp = False
 
     model.num_scales = 1000
     model.beta_min = 0.1

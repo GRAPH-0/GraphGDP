@@ -2,12 +2,16 @@
 
 Official Code Repository for GraphGDP (ICDM 2022).
 
+We will make a more detailed explanation soon.
+
 ## Dependencies 
 
 The main requirements are:
 * pytorch 1.11
 * PyG 2.1
 * DGL 0.9.1 (for GIN-based metrics from GGM-metrics)
+
+Others see requirements.txt .
 
 ## Data
 

@@ -5,7 +5,7 @@ from .trans_layers import *
 
 class pos_gnn(nn.Module):
     def __init__(self, act, x_ch, pos_ch, out_ch, max_node, graph_layer, n_layers=3, edge_dim=None, heads=4,
-                 temb_dim=None, dropout=0.1):
+                 temb_dim=None, dropout=0.1, attn_clamp=False):
         super().__init__()
         self.out_ch = out_ch
         self.Dropout_0 = nn.Dropout(dropout)
@@ -25,10 +25,12 @@ class pos_gnn(nn.Module):
 
         for i in range(n_layers):
             if i == 0:
-                self.convs.append(eval(graph_layer)(x_ch, pos_ch, self.out_ch//heads, heads, edge_dim=edge_dim*2, act=act))
+                self.convs.append(eval(graph_layer)(x_ch, pos_ch, self.out_ch//heads, heads, edge_dim=edge_dim*2,
+                                                    act=act, attn_clamp=attn_clamp))
             else:
                 self.convs.append(eval(graph_layer)
-                                  (self.out_ch, pos_ch, self.out_ch//heads, heads, edge_dim=edge_dim*2, act=act))
+                                  (self.out_ch, pos_ch, self.out_ch//heads, heads, edge_dim=edge_dim*2, act=act,
+                                   attn_clamp=attn_clamp))
             self.edge_convs.append(nn.Linear(self.out_ch, edge_dim*2))
 
     def forward(self, x_degree, x_pos, edge_index, dense_ori, dense_spd, dense_index, temb=None):
