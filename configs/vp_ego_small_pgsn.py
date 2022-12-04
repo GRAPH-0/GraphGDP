@@ -68,7 +68,6 @@ def get_config():
     # model
     config.model = model = ml_collections.ConfigDict()
     model.name = 'PGSN'
-    model.scale_by_sigma = False
     model.ema_rate = 0.9999
     model.normalization = 'GroupNorm'
     model.nonlinearity = 'swish'

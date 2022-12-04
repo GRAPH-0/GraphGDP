@@ -17,7 +17,7 @@ def get_config():
 
     training.batch_size = 32
     training.eval_batch_size = 16
-    training.n_iters = 1000000
+    training.n_iters = 1500000
     training.snapshot_freq = 10000
     training.log_freq = 200
     training.eval_freq = 5000
@@ -70,7 +70,6 @@ def get_config():
     # model
     config.model = model = ml_collections.ConfigDict()
     model.name = 'PGSN'
-    model.scale_by_sigma = False
     model.ema_rate = 0.9999
     model.normalization = 'GroupNorm'
     model.nonlinearity = 'swish'

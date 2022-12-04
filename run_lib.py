@@ -3,6 +3,7 @@ import torch
 import numpy as np
 import random
 import logging
+import time
 from absl import flags
 from torch.utils import tensorboard
 from torch_geometric.loader import DataLoader, DenseDataLoader
@@ -34,8 +35,8 @@ def set_random_seed(config):
     np.random.seed(seed)
     random.seed(seed)
 
-    # torch.backends.cudnn.deterministic = True
-    # torch.backends.cudnn.benchmark = False
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
 
 def sde_train(config, workdir):
@@ -248,6 +249,7 @@ def sde_evaluate(config, workdir, eval_folder="eval"):
             except:
                 time.sleep(120)
                 state = restore_checkpoint(ckpt_path, state, device=config.device)
+
         ema.copy_to(score_model.parameters())
 
         # Generate samples and compute MMD stats
