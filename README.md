@@ -56,11 +56,18 @@ python main.py --config configs/vp_com_small_pgsn.py --config.model.beta_max 5.0
 
 *Note*: we recommend training with config.model.beta_max 20.0 when utilizing probability flow ODEs.
 
-Some models are provided on [Google Drive](https://drive.google.com/drive/folders/103eZR1JsPOXsJztP-RdXUHnoZqvOAOqh?usp=sharing).
+Some models and generated samples are provided on [Google Drive](https://drive.google.com/drive/folders/103eZR1JsPOXsJztP-RdXUHnoZqvOAOqh?usp=sharing).
 
 ## Citation
 
-\
+```bibtex
+@article{huang2022graphgdp,
+  title={GraphGDP: Generative Diffusion Processes for Permutation Invariant Graph Generation},
+  author={Huang, Han and Sun, Leilei and Du, Bowen and Fu, Yanjie and Lv, Weifeng},
+  journal={arXiv preprint arXiv:2212.01842},
+  year={2022}
+}
+```
 
 
 
